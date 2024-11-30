@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 
@@ -82,15 +84,17 @@ public class ProductoController {
             // if (productosAlmacenados.get(i).getIdProducto() == id )
                 productosAlmacenados.remove(i);
             }
-
         }
-            
-        // for (Productos productoD : productosAlmacenados){
-        //     if (productoD.getIdProducto() == id){
-        //         productosAlmacenados.remove();
-        //         return productoD;
-        //     }
-        // }
-        // return null;
     }
+
+    @PutMapping("/{id}")
+    public void actualizarProducto(@PathVariable int id, @RequestBody Productos entity) {
+        for (int i = 0; i < productosAlmacenados.size(); i++){
+            Productos productosA = productosAlmacenados.get(i);
+            if (productosA.getIdProducto() == id){
+                productosAlmacenados.set(i, entity);
+            }
+        }
+    }
+
 }
