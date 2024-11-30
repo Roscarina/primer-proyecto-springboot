@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyec.proyec.Model.Productos;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,8 +25,9 @@ public class ProductoController {
 
     private List<Productos> productosAlmacenados = new ArrayList<>(
         Arrays.asList(
-            new Productos(123, "Coffe", 7000, 100), 
-            new Productos(234, "Leche", 9000, 50)
+            new Productos(123, "Coffe", 7000, 100), // 0 
+            new Productos(234, "Leche", 9000, 50), // 1
+            new Productos(456, "Papas", 2000, 10) 
         )
     );
 
@@ -41,7 +44,6 @@ public class ProductoController {
         
         
     }
-
 
     @GetMapping("/{id}")
     public Productos getProducto(@PathVariable int id){
@@ -72,5 +74,23 @@ public class ProductoController {
         return entity;
     }
     
+    @DeleteMapping("/{id}")
+    public void deleteProductos(@PathVariable int id){
+        for (int i = 0; i < productosAlmacenados.size() ; i++){
+            Productos productoD = productosAlmacenados.get(i);
+            if (productoD.getIdProducto() ==  id){
+            // if (productosAlmacenados.get(i).getIdProducto() == id )
+                productosAlmacenados.remove(i);
+            }
 
+        }
+            
+        // for (Productos productoD : productosAlmacenados){
+        //     if (productoD.getIdProducto() == id){
+        //         productosAlmacenados.remove();
+        //         return productoD;
+        //     }
+        // }
+        // return null;
+    }
 }
